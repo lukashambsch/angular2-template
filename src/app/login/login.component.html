@@ -1,8 +1,70 @@
-<h2>Login</h2>
-<div>
-  <form (submit)="login()">
-      Username: <input [(ngModel)]="username" type="text">
-      Password: <input [(ngModel)]="password" type="password">
-      <button type="submit">Login</button>
-  </form>
-</div>
+<form (submit)="login()">
+  <fieldset>
+    <div id="unpushed">
+      <div class="login-panel">
+
+        <!-- Lytx Header -->
+        <div class="panel-heading">
+          <div class="panel-heading-lytx-header">
+            <img src="/assets/images/lytx_logo.png" class="logo img-responsive"/>
+          </div>
+        </div>
+
+        <!-- Login form -->
+        <!-- div class="panel-body" -->
+
+        <!-- Username Section -->
+        <div class="form-group">
+          <div class="input-group">
+            <!-- Username Icon -->
+            <span class="input-group-addon"><i class="fa fa-user fa-fw blue-foreground"></i></span>
+
+            <!-- Username Textbox-->
+            <input type="text"
+                   class="form-control input-md no-round-corners lytx-font-primary"
+                   name="username"
+                   [(ngModel)]="username"
+                   placeholder="Username"
+                   required>
+          </div>
+        </div>
+
+        <!-- Password Section -->
+        <div class="input-group">
+          <!-- Password icon -->
+          <span class="input-group-addon"><i class="fa fa-lock fa-fw blue-foreground"></i></span>
+
+          <!-- Password textbox -->
+          <input type="password"
+                 class="form-control input-md no-round-corners lytx-font-primary"
+                 name="password"
+                 [(ngModel)]="password"
+                 placeholder="Password"
+                 required>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit"
+                class="lytx-btn-primary-green log-btn"
+                id="submitButton">
+          Login
+        </button>
+
+        <div class="remember">
+          <div class="check-top">
+            <div class="checkbox_wrapper">
+              <input type="checkbox" class="main-cb" name="checkbox" ng-click="login.rememberMe()" ng-model="login.isRememberMe" value="value" />
+              <label></label>
+            </div>
+          </div>
+          <span class="check-text">Remember Me</span>
+        </div>
+      </div>
+
+      <!-- Form validation message -->
+      <div class="message-panel">
+        <p class="login-validation-message" name="validationMessage">{{login.loginMessage || '&nbsp'}}</p>
+      </div>
+    </div>
+  </fieldset>
+</form>

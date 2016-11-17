@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/map';
@@ -10,18 +11,40 @@ import { User } from './User';
 export class AuthService {
   public authenticated: boolean;
   public user: User;
+  public remember: boolean;
+  public usernameCookie: string = 'username';
 
-  constructor() {
+  constructor(private http: Http) {
     this.user = new User();
   }
 
   /**
    *  Stubbed out fake login service.
    */
-  authenticate(username: string, password: string): Observable<boolean> {
-    this.user.username = username;
-    this.authenticated = true;
-    return Observable.from([this.authenticated]);
+  authenticate(username: string, password: string): Observable<any> {
+    let url = 'http://localhost:3000/v1/user/auth';
+    let payload = {
+      username: username,
+      password: password
+    };
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+    });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, payload, options)
+      .map(response => {
+        this.authenticated = true;
+        return response.json();
+      })
+  }
+
+  rememberMe(): void {
+    if(this.remember && this.user.username){
+      window.localStorage[this.usernameCookie] = this.user.username
+    }
+    else if(!this.remember){
+      delete window.localStorage[this.usernameCookie]
+    }
   }
 }
-

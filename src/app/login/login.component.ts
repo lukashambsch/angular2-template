@@ -23,9 +23,13 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.authenticate(this.username, this.password)
-        .subscribe((successful) => {
-          if (successful) {
-            this.router.navigate(['/']);
+        .subscribe((data) => {
+          let sessionId = data.SessionId;
+
+          if (sessionId) {
+            let novaURL = `http://localhost:3000/#?sessionid=${sessionId}`;
+            window.location.href = novaURL;
+            //this.router.navigate(['/']);
           }
         }, error => this.errorMessage = error);
   }
