@@ -1,10 +1,10 @@
-import { LoginAppPage } from './app.po';
+import { Angular2TemplatePage } from './app.po';
 
-describe('login-app App', function() {
-  let page: LoginAppPage;
+describe('angular2-template App', function() {
+  let page: Angular2TemplatePage;
 
   beforeEach(() => {
-    page = new LoginAppPage();
+    page = new Angular2TemplatePage();
   });
 
   it('should display message saying app works', () => {
