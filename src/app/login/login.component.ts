@@ -20,11 +20,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     let paramString: string = window.location.href.split('?')[1];
-    let paramVals: any = paramString.split('&');
-    for (let i = 0; i < paramVals.length; i++) {
-      let param: any = paramVals[i];
-      let paramKeyVal: any = param.split('=');
-      this.params[paramKeyVal[0]] = decodeURIComponent(paramKeyVal[1]);
+    if (paramString) {
+      let paramVals: any = paramString.split('&');
+      for (let i = 0; i < paramVals.length; i++) {
+        let param: any = paramVals[i];
+        let paramKeyVal: any = param.split('=');
+        this.params[paramKeyVal[0]] = decodeURIComponent(paramKeyVal[1]);
+      }
     }
   }
 
