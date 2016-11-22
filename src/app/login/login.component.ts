@@ -13,11 +13,19 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   errorMessage: string;
+  params: any = {};
 
   constructor(public router: Router,
               public authService: AuthService) {}
 
   ngOnInit() {
+    let paramString: string = window.location.href.split('?')[1];
+    let paramVals: any = paramString.split('&');
+    for (let i = 0; i < paramVals.length; i++) {
+      let param: any = paramVals[i];
+      let paramKeyVal: any = param.split('=');
+      this.params[paramKeyVal[0]] = decodeURIComponent(paramKeyVal[1]);
+    }
   }
 
   login() {
@@ -26,9 +34,8 @@ export class LoginComponent implements OnInit {
           let sessionId = data.SessionId;
 
           if (sessionId) {
-            let novaURL = `http://localhost:3000/#?sessionid=${sessionId}`;
-            window.location.href = novaURL;
-            //this.router.navigate(['/']);
+            let redirectURL = `${this.params.redirect_uri}?sessionid=${sessionId}`;
+            window.location.href = redirectURL;
           }
         }, error => this.errorMessage = error);
   }
