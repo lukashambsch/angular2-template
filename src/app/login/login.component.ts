@@ -37,6 +37,14 @@ export class LoginComponent implements OnInit {
             let redirectURL = `${this.params.redirect_uri}?sessionid=${sessionId}`;
             window.location.href = redirectURL;
           }
-        }, error => this.errorMessage = error);
+        }, (error) => {
+          if (error.status === 401) {
+            this.errorMessage = 'Incorrect username or password. Try again.';
+          } else {
+            this.errorMessage = `
+              Nova is currently undergoing maintenance at this time. Please try again in a few minutes.
+            `;
+          }
+        });
   }
 }
