@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthService } from '../shared/index';
 
@@ -16,27 +16,22 @@ export class LoginComponent implements OnInit {
   params: any = {};
 
   constructor(public router: Router,
-              public authService: AuthService) {}
+              public authService: AuthService,
+              private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    let paramString: string = window.location.href.split('?')[1];
-    if (paramString) {
-      let paramVals: any = paramString.split('&');
-      for (let i = 0; i < paramVals.length; i++) {
-        let param: any = paramVals[i];
-        let paramKeyVal: any = param.split('=');
-        this.params[paramKeyVal[0]] = decodeURIComponent(paramKeyVal[1]);
-      }
-    }
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.params = params;
+    });
   }
 
   login() {
     this.authService.authenticate(this.username, this.password)
         .subscribe((data) => {
-          let sessionId = data.SessionId;
+          let token = data.access_token;
 
-          if (sessionId) {
-            let redirectURL = `${this.params.redirect_uri}?sessionid=${sessionId}`;
+          if (token) {
+            let redirectURL = `${this.params.redirect_uri}#?access_token=${token}&state=${this.params.state}&nonce=${this.params.nonce}`;
             window.location.href = redirectURL;
           }
         }, (error) => {
