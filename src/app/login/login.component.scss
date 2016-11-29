@@ -4,6 +4,9 @@ $white: #fff;
 $blue: #0698D3;
 $bod-sml: 13px;
 $bod-med: 14px;
+$header-ht: 70px;
+$header-ht-mbl: 50px;
+
 #unpushed {
     //margin-left: -220px;
     height:100%;
@@ -130,4 +133,14 @@ $bod-med: 14px;
 
 .panel-body {
     padding: 0;
+}
+
+.logo {
+  background-color: #fff;
+  height: $header-ht;
+  display: block;
+  padding: 13px 0 0 10px;
+  @media (max-width: 767px) {
+    height: $header-ht-mbl;
+  }
 }
