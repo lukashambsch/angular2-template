@@ -2,10 +2,10 @@ import { browser, element, by } from 'protractor';
 
 export class LoginAppPage {
   navigateTo() {
-    return browser.get('/');
+    return browser.get('/login');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  hasLoginPanel() {
+    return element(by.css('.login-panel')).isDisplayed();
   }
 }

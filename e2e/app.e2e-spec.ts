@@ -7,8 +7,8 @@ describe('login-app App', function() {
     page = new LoginAppPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should have login panel element', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.hasLoginPanel()).toBeTruthy();
   });
 });
