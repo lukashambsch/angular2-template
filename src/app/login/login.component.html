@@ -1,4 +1,4 @@
-<form (submit)="login()">
+<form ngNoForm name="form" method="post" action="{{serverParams.loginUrl}}">
   <fieldset>
     <div id="unpushed">
       <div class="login-panel">
@@ -23,6 +23,7 @@
             <input type="text"
                    class="form-control input-md no-round-corners lytx-font-primary"
                    name="username"
+                   id="username"
                    [(ngModel)]="username"
                    placeholder="Username"
                    required>
@@ -38,22 +39,24 @@
           <input type="password"
                  class="form-control input-md no-round-corners lytx-font-primary"
                  name="password"
+                 id="password"
                  [(ngModel)]="password"
                  placeholder="Password"
                  required>
         </div>
 
         <!-- Submit button -->
-        <button type="submit"
-                class="lytx-btn-primary-green log-btn"
-                id="submitButton">
-          Login
-        </button>
+        <button class="btn btn-primary log-btn" type="submit">Login</button>
 
         <div class="remember">
           <div class="check-top">
             <div class="checkbox_wrapper">
-              <input type="checkbox" class="main-cb" name="checkbox" ng-click="login.rememberMe()" ng-model="login.isRememberMe" value="value" />
+              <input type="checkbox"
+                     class="main-cb"
+                     name="rememberMe"
+                     (click)="rememberMe()"
+                     [(ngModel)]="isRememberMe"
+                     value="value" />
               <label></label>
             </div>
           </div>

@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMessage: string;
   params: any = {};
+  serverParams: any = {};
 
   constructor(public router: Router,
               public authService: AuthService,
@@ -23,6 +24,14 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params: any) => {
       this.params = params;
     });
+    this.serverParams = JSON.parse(this.decodeHtml(document.querySelector('#modelJson').innerHTML));
+    this.errorMessage = this.serverParams.errorMessage;
+  }
+
+  decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
   }
 
   login() {
